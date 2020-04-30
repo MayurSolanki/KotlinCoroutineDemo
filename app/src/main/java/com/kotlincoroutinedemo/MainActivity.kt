@@ -3,20 +3,38 @@ package com.kotlincoroutinedemo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import androidx.lifecycle.ViewModelProvider
+import com.kotlincoroutinedemo.vmld.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
 
 class MainActivity : AppCompatActivity() {
 
     private var count : Int = 0
     private var TAG : String = "Kotlin Coroutine"
+    lateinit var  mainActivityViewModel: MainActivityViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+
+
+//        mainActivityViewModel.callApiGetUserData()
+//        mainActivityViewModel.liveData.observe(this, Observer {
+//            userData->
+//
+//            userData.forEach{
+//                Log.i(TAG," Live data Iterate ${it.name}")
+//            }
+//
+//        })
+
+
+
+
 
 //        btn_click_here.setOnClickListener {
 //            tv_count.text = count++.toString()

@@ -29,30 +29,18 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 
-        CoroutineScope(Dispatchers.Main).launch {
 
-            Log.i(TAG,"  Start stock ")
+ //          SequenceExecution()
+//          CoroutineAsyncAwait()
+//           CoroutineLazy()
+//         timeOutCoroutine()
+//        runBlockingBuilder()
 
-//                   Deferred , Execute One By One
-//                 val stock1 : Int = getStock1()
-//                 val stock2 : Int = getStock2()
-//                 val total : Int = stock1 + stock2
-//            Log.i(TAG," Total is $total")
+    }
 
-//                          Async Await , Run in parallel
-                val stock1  = async (Dispatchers.IO)  {getStock1() }
-                 val stock2  = async (Dispatchers.IO) {getStock2()  }
+    private fun runBlockingBuilder() {
+        // some times need to block main thread
 
-                 val total : Int = stock1.await() + stock2.await()
-
-               withContext(Dispatchers.Main){
-                  tv_count.text = total.toString()
-
-               }
-
-               Log.i(TAG," Total is $total")
-
-        }
     }
 
 
@@ -72,14 +60,107 @@ class MainActivity : AppCompatActivity() {
 //         }
 //    }
 
+    private fun CoroutineLazy(){
+        // Only invoke by await, Deferred , run paraller
+        CoroutineScope(Dispatchers.Main).launch {
+
+            Log.i(TAG,"  Start stock  .....")
+
+
+
+//                          Async Await , Run in parallel
+            val stock1  = async(start = CoroutineStart.LAZY)  {
+                getStock1()
+            }
+            val stock2  = async (start = CoroutineStart.LAZY) {
+                getStock2()
+            }
+
+
+
+            delay(4000)
+            Log.i(TAG," ============= just before await ==========")
+
+            val total : Int = stock1.await() + stock2.await()
+
+            tv_count.text = total.toString()
+
+
+            Log.i(TAG," Total is $total")
+
+        }
+    }
+
+    private fun CoroutineAsyncAwait(){
+        //  run sequentially
+        CoroutineScope(Dispatchers.Main).launch {
+
+            Log.i(TAG,"  Start stock  .....")
+
+
+//               Async Await , Run in parallel
+            val stock1  = async(Dispatchers.IO)  {
+                getStock1()
+            }
+            val stock2  = async(Dispatchers.IO)  {
+                getStock2()
+            }
+
+
+
+//            delay(4000)
+//            Log.i(TAG," ============= just before await ==========")
+
+            val total : Int = stock1.await() + stock2.await()
+
+            tv_count.text = total.toString()
+
+
+            Log.i(TAG," Total is $total")
+
+        }
+    }
+
+    private fun timeOutCoroutine(){
+        CoroutineScope(Dispatchers.Main).launch {
+            
+//            withTimeoutOrNull(5000){
+//                for(i in 1..100000){
+//
+//                    delay(1000)
+//                    Log.i(TAG," Total is $i")
+//                }
+//            }
+        }
+    }
+
+    private fun SequenceExecution(){
+
+        //                  Sequential Decomposition, This is not parallel Decomposition, Old approach one by one
+//                 val stock1 : Int = getStock1()
+//                 val stock2 : Int = getStock2()
+//                 val total : Int = stock1 + stock2
+//            Log.i(TAG," Total is $total")
+
+    }
+
+
+
+
     private suspend fun getStock1():Int{
-        delay(5000)
+        Log.i(TAG," getStock1 start")
+
+        delay(3000)
         Log.i(TAG," getStock1 returned")
         return 101
     }
     private suspend fun getStock2():Int{
-        delay(8000)
+        Log.i(TAG," getStock2 start")
+
+        delay(5000)
         Log.i(TAG," getStock2 returned ")
         return 102
     }
 }
+
+

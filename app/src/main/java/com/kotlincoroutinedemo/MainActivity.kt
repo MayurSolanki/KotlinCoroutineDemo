@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.kotlincoroutinedemo.vmld.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,6 +56,23 @@ class MainActivity : AppCompatActivity() {
 //           CoroutineLazy()
 //         timeOutCoroutine()
 //        runBlockingBuilder()
+
+
+
+
+
+        CoroutineScope(Dispatchers.Main).launch {
+            makeFlow().collect {
+
+            }
+        }
+
+
+    }
+
+    fun makeFlow() = flow<String>{
+
+        emit("A")
 
     }
 

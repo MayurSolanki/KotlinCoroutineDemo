@@ -6,7 +6,7 @@ import kotlinx.coroutines.*
  * Created by Mayur Solanki (mayursolanki120@gmail.com) on 30/04/20, 12:01 PM.
  */
 class UserDataManagerStruct {
-
+// coroutineScope and supervisorScope will wait for child coroutines to complete. ====> SMALL c
     var count = 0
     lateinit var deferred : Deferred<Int>
 
@@ -14,6 +14,7 @@ class UserDataManagerStruct {
 
         // Child Coroutine
         coroutineScope {
+
             launch (Dispatchers.IO){
                   delay(1000)
 
@@ -34,6 +35,8 @@ class UserDataManagerStruct {
     // So Unstructured concurrency can be eliminated by the Structured Concurrency
     // Structured Concurrency is cancellable and allow exception handling
     // coroutineScope (Small c) , is suspend function used in Structured Concurrency
+    // coroutineScope and supervisorScope will wait for child coroutines to complete.
+
     suspend fun getUserDataAsync() : Int {
         var count = 0
 

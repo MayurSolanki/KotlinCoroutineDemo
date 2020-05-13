@@ -10,10 +10,12 @@ import kotlinx.coroutines.launch
  * Created by Mayur Solanki (mayursolanki120@gmail.com) on 30/04/20, 12:41 PM.
  */
 //// suspend the child coroutine until job finish
+
 class DemoJoinFunction {
 
 
     private var TAG : String = "Kotlin Coroutine"
+
 
 
     suspend fun test1(){

@@ -15,6 +15,8 @@ class MainActivityViewModel : ViewModel() {
     var user : LiveData<List<User>>  = liveData<List<User>>(Dispatchers.IO) {
         var result = userRepository.getDataFromApi()
         emit(result)
+
+//        emitSource() // emit other live data
     }
 
 

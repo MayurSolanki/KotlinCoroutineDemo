@@ -11,10 +11,10 @@ Kotlin Coroutine
    2 Global Scope
 
 #. Dispatcher 
-  IO.           ===> network I/O outside of the main thread.
-  Default.   ====>  perform CPU-intensive work outside of the main thread. Example use cases include sorting a list and parsing JSON.
- Unconfined. ======>
-  Main          =====>  Main thread UI android, to interact with UI only
+   1. IO.  ===> network I/O outside of the main thread.
+   2. Default ====>  perform CPU-intensive work outside of the main thread. Example use cases include sorting a list and parsing JSON.
+   3. Unconfined. ======>
+   4. Main          =====>  Main thread UI android, to interact with UI only 
 
 # Coroutine Builders
    1  launch.  => launch builder launches new coroutine without blocking current thread, Return instance of job which can be used as reference to coroutine
@@ -30,7 +30,7 @@ Kotlin Coroutine
    2. WithTimeout
    3.  Delay
    4. Await
-  5. Join
+   5. Join
 
 #  Structured Concurrency
      => Set of language features and rules for coroutine to avoid memory leak, and use coroutine productively
